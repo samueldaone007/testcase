@@ -1,0 +1,62 @@
+.stamp {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.18em 0.6em 0.1em;
+  border: 3px solid currentColor;
+  border-radius: 4px;
+  font-family: var(--font-hand);
+  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  transform: rotate(-7deg);
+  /* stamped ink sits *in* the paper */
+  mix-blend-mode: multiply;
+  opacity: 0.92;
+  animation: stamp-thunk 0.34s cubic-bezier(0.3, 1.7, 0.5, 1) both;
+  transform-origin: 60% 120%;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* the thunk: swoop in from up-left, overshoot, settle crooked */
+@keyframes stamp-thunk {
+  0% {
+    opacity: 0;
+    transform: translate(-14px, -26px) rotate(-26deg) scale(2.1);
+  }
+  55% {
+    opacity: 0.95;
+    transform: translate(0, 0) rotate(-4deg) scale(0.9);
+  }
+  72% {
+    transform: translate(1px, 1px) rotate(-9deg) scale(1.06);
+  }
+  100% {
+    opacity: 0.92;
+    transform: translate(0, 0) rotate(-7deg) scale(1);
+  }
+}
+
+.stamp__ink {
+  /* faint uneven ink coverage, like a rubber stamp pad */
+  background-image: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.55) 0 1.2px, transparent 1.3px),
+    radial-gradient(circle at 70% 65%, rgba(255, 255, 255, 0.4) 0 1.4px, transparent 1.5px);
+  background-size: 7px 7px, 11px 11px;
+}
+
+.stamp--pass {
+  color: var(--sage-dark);
+}
+
+/* failures are the only place brick orange is allowed */
+.stamp--fail {
+  color: var(--brick);
+}
+
+.stamp--blocked {
+  color: var(--cocoa-soft);
+}

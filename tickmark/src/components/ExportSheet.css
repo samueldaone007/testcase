@@ -1,0 +1,247 @@
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(0.5rem, 3vw, 2rem);
+  background: rgba(91, 74, 63, 0.44);
+  backdrop-filter: blur(1.5px);
+  animation: fade-in 0.16s ease both;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.sheet {
+  width: min(720px, 100%);
+  max-height: min(92dvh, 900px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  background: var(--paper-light);
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border: 2px solid var(--cocoa-soft);
+  border-radius: 14px;
+  box-shadow: 6px 8px 0 rgba(60, 47, 37, 0.35);
+  animation: sheet-in 0.22s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) rotate(-0.6deg) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.sheet__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.sheet__title {
+  font-size: clamp(1.3rem, 4vw, 1.7rem);
+}
+
+.sheet__close {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border: 1.5px solid rgba(91, 74, 63, 0.24);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--cocoa-soft);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.13s ease;
+}
+
+.sheet__close:hover {
+  background: var(--brick-tint);
+  color: var(--brick);
+  border-color: var(--brick);
+}
+
+.sheet__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.field input {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--cocoa);
+  padding: 0.55rem 0.7rem;
+  border: 2px solid rgba(91, 74, 63, 0.24);
+  border-radius: 8px;
+  background: var(--paper-light);
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(124, 154, 114, 0.24);
+}
+
+.format {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.format legend {
+  margin-bottom: 0.3rem;
+}
+
+.format__opt {
+  flex: 1 1 190px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  padding: 0.55rem 0.7rem;
+  border: 1.5px solid rgba(91, 74, 63, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  box-shadow: 0 1.5px 0 rgba(91, 74, 63, 0.12);
+  transition: all 0.13s ease;
+}
+
+.format__opt input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.format__opt:hover {
+  background: #fff;
+}
+
+.format__opt.is-on {
+  background: var(--butter-tint);
+  border-color: var(--butter-deep);
+  box-shadow: 2.5px 2.5px 0 rgba(176, 141, 35, 0.4);
+}
+
+.format__name {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--cocoa);
+}
+
+.format__hint {
+  font-size: 0.76rem;
+  color: var(--cocoa-soft);
+  line-height: 1.3;
+}
+
+.summary-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.summary-pill {
+  font-family: var(--font-hand);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.3em 0.7em;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+}
+
+.summary-pill--pass {
+  background: var(--sage);
+  border-color: var(--sage-dark);
+  color: #fff;
+}
+
+.summary-pill--fail {
+  background: var(--brick);
+  border-color: var(--brick);
+  color: #fff;
+}
+
+.summary-pill--blocked {
+  background: var(--butter);
+  border-color: var(--butter-deep);
+  color: var(--cocoa);
+}
+
+.summary-pill--rest {
+  background: rgba(91, 74, 63, 0.1);
+  border-color: rgba(91, 74, 63, 0.2);
+  color: var(--cocoa-soft);
+}
+
+.sheet__preview {
+  flex: 1;
+  min-height: 130px;
+  max-height: 42dvh;
+  overflow: auto;
+  margin: 0;
+  padding: 0.75rem 0.85rem;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 0.76rem;
+  line-height: 1.55;
+  color: var(--cocoa);
+  white-space: pre;
+  background: #fffdf6;
+  border: 1.5px solid rgba(91, 74, 63, 0.22);
+  border-radius: 8px;
+  box-shadow: inset 0 2px 5px rgba(91, 74, 63, 0.08);
+}
+
+.sheet__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.sheet__filename {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  color: var(--cocoa-faint);
+  overflow-wrap: anywhere;
+}
+
+.sheet__buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .sheet__buttons {
+    width: 100%;
+  }
+
+  .sheet__buttons .stamp-btn {
+    flex: 1;
+  }
+}

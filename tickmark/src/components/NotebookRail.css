@@ -1,0 +1,229 @@
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.rail__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.rail__head--sub {
+  padding-top: 0.85rem;
+  border-top: 2px dashed rgba(91, 74, 63, 0.22);
+}
+
+.rail__title {
+  font-size: 1.35rem;
+}
+
+.rail__subtitle {
+  font-size: 1.02rem;
+}
+
+.rail__new {
+  font-family: var(--font-hand);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.3em 0.7em;
+  min-height: 26px;
+  border-radius: 7px;
+  border: 1.5px solid var(--sage);
+  background: rgba(124, 154, 114, 0.14);
+  color: var(--sage-dark);
+  cursor: pointer;
+  transition: all 0.13s ease;
+  white-space: nowrap;
+}
+
+.rail__new:hover {
+  background: var(--sage);
+  color: #fff;
+}
+
+.rail__draft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.6rem;
+  background: rgba(244, 217, 124, 0.2);
+  border: 1.5px dashed var(--butter-deep);
+  border-radius: var(--radius);
+}
+
+.rail__draft input {
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: var(--cocoa);
+  padding: 0.45rem 0.55rem;
+  border: 2px solid rgba(91, 74, 63, 0.24);
+  border-radius: 7px;
+  background: var(--paper-light);
+  width: 100%;
+}
+
+.rail__draft input:focus {
+  outline: none;
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(124, 154, 114, 0.24);
+}
+
+.rail__draft-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.rail__draft-actions .stamp-btn {
+  font-size: 0.78rem;
+  padding: 0.5em 0.8em;
+}
+
+/* ---------- lists ---------- */
+
+.rail__projects,
+.rail__lists {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.rail__project,
+.rail__list {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+
+.rail__project-btn,
+.rail__list-btn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.5rem 0.6rem;
+  text-align: left;
+  border: 1.5px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.13s ease;
+}
+
+.rail__project-btn:hover,
+.rail__list-btn:hover {
+  background: rgba(255, 255, 255, 0.66);
+  border-color: rgba(91, 74, 63, 0.16);
+}
+
+.rail__project.is-active .rail__project-btn,
+.rail__list.is-active .rail__list-btn {
+  background: var(--butter-tint);
+  border-color: var(--butter-deep);
+  box-shadow: 2px 2px 0 rgba(176, 141, 35, 0.35);
+}
+
+.rail__project.is-active .rail__project-btn {
+  transform: rotate(-0.5deg);
+}
+
+.rail__project-name {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--cocoa);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rail__project-meta {
+  font-size: 0.72rem;
+  color: var(--cocoa-faint);
+}
+
+.rail__list-btn {
+  padding: 0.42rem 0.6rem;
+}
+
+.rail__list-name {
+  font-size: 0.87rem;
+  font-weight: 600;
+  color: var(--cocoa-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rail__list.is-active .rail__list-name {
+  color: var(--cocoa);
+}
+
+.rail__list-meter {
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(91, 74, 63, 0.14);
+  overflow: hidden;
+  margin-top: 0.2rem;
+}
+
+.rail__list-meter-fill {
+  display: block;
+  height: 100%;
+  background: var(--sage);
+  transition: width 0.35s ease;
+}
+
+.rail__list-meta {
+  font-family: var(--font-note);
+  font-size: 0.92rem;
+  line-height: 1;
+  color: var(--cocoa-faint);
+}
+
+.rail__delete {
+  width: 24px;
+  margin-left: 0.15rem;
+  align-self: center;
+  height: 24px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--cocoa-faint);
+  font-size: 0.78rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.13s ease;
+}
+
+.rail__project:hover .rail__delete,
+.rail__list:hover .rail__delete,
+.rail__delete:focus-visible {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .rail__delete {
+    opacity: 1;
+  }
+}
+
+.rail__delete:hover {
+  background: var(--brick-tint);
+  color: var(--brick);
+}
+
+.rail__empty {
+  font-family: var(--font-note);
+  font-size: 1.04rem;
+  color: var(--cocoa-faint);
+  padding: 0.3rem 0.4rem;
+}

@@ -1,0 +1,472 @@
+.step-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+  padding: 0.7rem 0.6rem 0.7rem 0.35rem;
+  background: var(--paper-light);
+  border: 1.5px solid rgba(91, 74, 63, 0.16);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.step-row:hover {
+  border-color: rgba(91, 74, 63, 0.3);
+}
+
+.step-row.is-dragging {
+  opacity: 0.45;
+  border-style: dashed;
+  background: transparent;
+  box-shadow: none;
+}
+
+.step-row.status-fail {
+  border-left: 5px solid var(--brick);
+}
+
+.step-row.status-blocked {
+  border-left: 5px solid var(--butter-deep);
+}
+
+.step-row.status-pass {
+  border-left: 5px solid var(--sage);
+}
+
+/* ---------- drag handle ---------- */
+
+.drag-handle {
+  align-self: start;
+  width: 26px;
+  min-height: 34px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--cocoa-faint);
+  font-size: 0.85rem;
+  letter-spacing: -0.12em;
+  line-height: 1;
+  cursor: grab;
+  touch-action: none;
+  border-radius: 6px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.drag-handle:hover {
+  color: var(--cocoa-soft);
+  background: rgba(124, 154, 114, 0.16);
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* ---------- layout ---------- */
+
+.step-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+}
+
+.step-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+/* ---------- the tactile checkbox ---------- */
+
+.tactile-box {
+  flex: none;
+  width: 27px;
+  height: 27px;
+  margin-top: 1px;
+  padding: 0;
+  border-radius: 8px;
+  border: 2.5px solid var(--cocoa-faint);
+  background: linear-gradient(180deg, #fffdf7 0%, var(--paper-deep) 100%);
+  box-shadow: 0 2px 0 rgba(91, 74, 63, 0.22), 0 3px 5px rgba(91, 74, 63, 0.1),
+    inset 0 2px 3px rgba(255, 255, 255, 0.9);
+  display: grid;
+  place-items: center;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.tactile-box:hover {
+  border-color: var(--sage);
+}
+
+.tactile-box:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 rgba(91, 74, 63, 0.2), inset 0 2px 4px rgba(91, 74, 63, 0.2);
+}
+
+.tactile-box svg {
+  width: 18px;
+  height: 18px;
+  overflow: visible;
+}
+
+.tactile-box__tick {
+  fill: none;
+  stroke: var(--paper-light);
+  stroke-width: 3.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  transition: stroke-dashoffset 0.001s;
+}
+
+.tactile-box.is-checked {
+  background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%);
+  border-color: var(--sage-dark);
+  box-shadow: 0 2px 0 rgba(95, 125, 87, 0.6), 0 3px 5px rgba(95, 125, 87, 0.22),
+    inset 0 2px 3px rgba(255, 255, 255, 0.35);
+}
+
+.tactile-box.is-checked .tactile-box__tick {
+  stroke-dashoffset: 0;
+  animation: tick-draw 0.26s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+@keyframes tick-draw {
+  from {
+    stroke-dashoffset: 30;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- titles ---------- */
+
+.step-titles {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.step-title {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--cocoa);
+  cursor: text;
+  border-radius: 6px;
+}
+
+.step-title__text {
+  overflow-wrap: anywhere;
+  background-image: linear-gradient(var(--rule-line), var(--rule-line));
+  background-repeat: no-repeat;
+  background-size: 0% 1.5px;
+  background-position: 0 1.1em;
+  transition: background-size 0.25s ease;
+}
+
+.step-title:hover .step-title__text {
+  background-size: 100% 1.5px;
+}
+
+.status-pass .step-title__text {
+  color: var(--cocoa-soft);
+}
+
+.status-fail .step-title__text {
+  text-decoration: line-through;
+  text-decoration-color: rgba(217, 91, 43, 0.55);
+  text-decoration-thickness: 2px;
+}
+
+.from-chat {
+  flex: none;
+  font-family: var(--font-note);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--sage-dark);
+  background: rgba(124, 154, 114, 0.16);
+  border: 1px dashed var(--sage);
+  border-radius: 3px;
+  padding: 0 0.35em;
+  transform: rotate(-2deg);
+}
+
+.edit-title {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.35;
+  color: var(--cocoa);
+  padding: 0.1rem 0.3rem;
+  border: 2px solid var(--sage);
+  border-radius: 6px;
+  background: #fff;
+  resize: vertical;
+  overflow: hidden;
+}
+
+/* ---------- row tools ---------- */
+
+.row-tools {
+  display: flex;
+  gap: 0.15rem;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.step-row:hover .row-tools,
+.step-row:focus-within .row-tools {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .row-tools {
+    opacity: 1;
+  }
+}
+
+.tool {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--cocoa-soft);
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tool:hover {
+  background: var(--butter-tint);
+  color: var(--cocoa);
+}
+
+.tool--danger:hover {
+  background: var(--brick-tint);
+  color: var(--brick);
+}
+
+/* ---------- details ---------- */
+
+.step-details {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--cocoa-soft);
+  overflow-wrap: anywhere;
+}
+
+.step-expected {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--sage-dark);
+  overflow-wrap: anywhere;
+}
+
+.step-expected .kicker {
+  margin-right: 0.3rem;
+}
+
+/* ---------- status strip ---------- */
+
+.status-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.1rem;
+}
+
+.chip {
+  font-family: var(--font-hand);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  padding: 0.38em 0.75em;
+  min-height: 26px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  background: transparent;
+  color: var(--cocoa-faint);
+  cursor: default;
+  transition: all 0.15s ease;
+}
+
+button.chip {
+  cursor: pointer;
+  border-color: rgba(91, 74, 63, 0.2);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+button.chip:hover {
+  border-color: var(--cocoa-faint);
+  background: #fff;
+}
+
+.chip--pass {
+  color: var(--sage-dark);
+}
+
+.chip--pass.is-on {
+  background: var(--sage);
+  border-color: var(--sage-dark);
+  color: #fff;
+  box-shadow: 0 1.5px 0 var(--sage-dark);
+}
+
+/* brick orange belongs to failures only */
+.chip--fail {
+  color: var(--cocoa-soft);
+}
+
+.chip--fail:hover {
+  color: var(--brick);
+  border-color: rgba(217, 91, 43, 0.45);
+}
+
+.chip--fail.is-on {
+  background: var(--brick);
+  border-color: var(--brick);
+  color: #fff;
+  box-shadow: 0 1.5px 0 rgba(139, 55, 20, 0.9);
+}
+
+.chip--blocked.is-on {
+  background: var(--butter);
+  border-color: var(--butter-deep);
+  color: var(--cocoa);
+  box-shadow: 0 1.5px 0 var(--butter-deep);
+}
+
+.chip--hint {
+  font-family: var(--font-note);
+  font-size: 0.85rem;
+  letter-spacing: 0;
+  color: var(--cocoa-faint);
+  text-transform: lowercase;
+}
+
+/* ---------- notes ---------- */
+
+.notes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  animation: note-drop 0.2s ease both;
+}
+
+@keyframes note-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.notes__prompt {
+  font-family: var(--font-note);
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--cocoa-soft);
+}
+
+.status-fail .notes__prompt {
+  color: var(--brick);
+}
+
+.notes textarea {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--cocoa);
+  padding: 0.45rem 0.55rem;
+  border: 1.5px solid rgba(91, 74, 63, 0.22);
+  border-radius: 7px;
+  /* ruled notepaper */
+  background-color: #fffdf6;
+  background-image: repeating-linear-gradient(
+    transparent 0 21px,
+    rgba(91, 74, 63, 0.09) 21px 22px
+  );
+  resize: vertical;
+}
+
+.status-fail .notes textarea {
+  border-color: rgba(217, 91, 43, 0.5);
+  background-color: #fff9f5;
+}
+
+.notes textarea:focus {
+  outline: none;
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(124, 154, 114, 0.22);
+}
+
+/* ---------- edit panel ---------- */
+
+.edit-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  background: rgba(244, 217, 124, 0.16);
+  border: 1.5px dashed var(--butter-deep);
+  border-radius: 8px;
+}
+
+.edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.edit-field textarea {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--cocoa);
+  padding: 0.4rem 0.5rem;
+  border: 1.5px solid rgba(91, 74, 63, 0.22);
+  border-radius: 7px;
+  background: var(--paper-light);
+  resize: vertical;
+}
+
+.edit-field textarea:focus {
+  outline: none;
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(124, 154, 114, 0.22);
+}
+
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+}

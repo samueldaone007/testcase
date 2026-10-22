@@ -1,0 +1,30 @@
+{
+  "name": "tickmark",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "serve": "node server/index.mjs",
+    "start": "npm run build && npm run serve",
+    "test": "npm run test:logic && npm run test:render",
+    "test:logic": "vite build --ssr tests/logic.smoke.ts --outDir .test-out --emptyOutDir && node .test-out/logic.smoke.js",
+    "test:render": "vite build --ssr tests/render.smoke.tsx --outDir .test-out --emptyOutDir && node .test-out/render.smoke.js"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
+  }
+}

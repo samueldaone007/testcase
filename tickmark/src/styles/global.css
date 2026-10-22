@@ -1,0 +1,173 @@
+/* ============================================================
+   Tickmark — lab notebook design tokens & base
+   ============================================================ */
+
+:root {
+  /* paper */
+  --paper: #f5efe1;
+  --paper-light: #fbf7ec;
+  --paper-deep: #efe6d3;
+
+  /* ink & accents */
+  --sage: #7c9a72;
+  --sage-dark: #5f7d57;
+  --sage-tint: #e7ecdf;
+  --butter: #f4d97c;
+  --butter-deep: #e9c653;
+  --butter-tint: #fbf1cf;
+  --cocoa: #5b4a3f;
+  --cocoa-soft: #8a7767;
+  --cocoa-faint: #b6a693;
+  --brick: #d95b2b; /* failures only */
+  --brick-tint: #f8e0d5;
+
+  --grid-line: rgba(91, 74, 63, 0.07);
+  --rule-line: rgba(124, 154, 114, 0.5);
+
+  --edge: rgba(91, 74, 63, 0.22);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.75) inset, 0 2px 0 rgba(91, 74, 63, 0.13);
+  --shadow-lift: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 4px 0 rgba(91, 74, 63, 0.16);
+
+  --font-hand: 'Shantell Sans', 'Comic Sans MS', cursive;
+  --font-body: 'Karla', ui-sans-serif, system-ui, sans-serif;
+  --font-note: 'Caveat', 'Shantell Sans', cursive;
+
+  --radius: 10px;
+  --tap: 44px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--cocoa);
+  background-color: var(--paper);
+  /* faint graph-paper grid: 5mm-ish squares with a heavier rule every 5 */
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(rgba(91, 74, 63, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91, 74, 63, 0.045) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--cocoa);
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--butter-deep);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* shared: handwritten kicker / small caps label */
+.kicker {
+  font-family: var(--font-hand);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cocoa-faint);
+}
+
+/* shared: a torn-off paper button with a tactile press */
+.stamp-btn {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 0.85rem;
+  line-height: 1;
+  padding: 0.62em 1em;
+  min-height: 36px;
+  color: var(--cocoa);
+  background: var(--paper-light);
+  border: 1.5px solid var(--edge);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease;
+}
+
+.stamp-btn:hover {
+  background: var(--butter-tint);
+}
+
+.stamp-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset;
+}
+
+.stamp-btn.solid {
+  background: var(--sage);
+  border-color: var(--sage-dark);
+  color: #fbf7ec;
+}
+
+.stamp-btn.solid:hover {
+  background: var(--sage-dark);
+}
+
+.stamp-btn.ghost {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* scrollbar, quietly */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--cocoa-faint) transparent;
+}
+*::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(138, 119, 103, 0.4);
+  border-radius: 9px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
